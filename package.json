@@ -1,0 +1,13 @@
+{
+  "name": "divera-slack-app",
+  "private": true,
+  "author": {
+    "name": "Philipp Jardas",
+    "email": "philipp@jardas.de"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
