@@ -1,5 +1,3 @@
-/.serverless
-/.wireit
+/.slack/apps.dev.json
 /dist
-/node_modules
-*.log
+/package
