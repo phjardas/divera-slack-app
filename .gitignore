@@ -1,2 +1,5 @@
+/.serverless
+/.wireit
+/dist
 /node_modules
 *.log
