@@ -6,49 +6,26 @@
     "email": "philipp@jardas.de"
   },
   "scripts": {
-    "generate": "wireit",
-    "generate:divera:alarm": "wireit",
-    "generate:divera:auth": "wireit",
     "build": "wireit",
-    "clean": "shx rm -rf dist src/api/divera/{alarm,auth}"
+    "clean": "shx rm -rf dist",
+    "start": "tsx --watch src"
+  },
+  "dependencies": {
+    "debug": "^4.3.4",
+    "socket.io-client": "^2.5.0"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.8",
     "@types/node": "^20.4.5",
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.0.0",
     "shx": "^0.3.4",
+    "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "wireit": "^0.10.0"
   },
   "wireit": {
-    "generate": {
-      "dependencies": [
-        "generate:divera:alarm",
-        "generate:divera:auth"
-      ]
-    },
-    "generate:divera:alarm": {
-      "command": "openapi --input openapi/divera_api_v2_alarm.yaml --output src/api/divera/alarm --useUnionTypes --indent 2 && echo 'export const binary = undefined;' > src/api/divera/alarm/models/binary.ts",
-      "files": [
-        "openapi/divera_api_v2_alarm.yaml"
-      ],
-      "output": [
-        "src/api/divera/alarm"
-      ]
-    },
-    "generate:divera:auth": {
-      "command": "openapi --input openapi/divera_api_v2_auth.yaml --output src/api/divera/auth --useUnionTypes --indent 2",
-      "files": [
-        "openapi/divera_api_v2_auth.yaml"
-      ],
-      "output": [
-        "src/api/divera/auth"
-      ]
-    },
     "build": {
-      "dependencies": [
-        "generate"
-      ],
       "command": "tsc",
       "files": [
         "src/**/*"
