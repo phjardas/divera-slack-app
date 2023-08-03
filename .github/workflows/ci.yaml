@@ -8,9 +8,26 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-      - run: npm ci
-      - run: npm run generate
-      - run: npm run build
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Create docker tag
+        id: docker-tag
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ghcr.io/${{ github.repository }}:${{ github.run_number }}
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.docker-tag.outputs.lowercase }}
+          push: true

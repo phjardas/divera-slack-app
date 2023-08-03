@@ -1,12 +1,8 @@
 {
   "name": "divera-slack-app",
   "private": true,
-  "author": {
-    "name": "Philipp Jardas",
-    "email": "philipp@jardas.de"
-  },
   "scripts": {
-    "build": "wireit",
+    "build": "tsc",
     "clean": "shx rm -rf dist",
     "start": "tsx --watch src"
   },
@@ -21,19 +17,7 @@
     "prettier": "^3.0.0",
     "shx": "^0.3.4",
     "tsx": "^3.12.7",
-    "typescript": "^5.1.6",
-    "wireit": "^0.10.0"
-  },
-  "wireit": {
-    "build": {
-      "command": "tsc",
-      "files": [
-        "src/**/*"
-      ],
-      "output": [
-        "dist"
-      ]
-    }
+    "typescript": "^5.1.6"
   },
   "volta": {
     "node": "18.17.0"
