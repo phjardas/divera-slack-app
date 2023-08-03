@@ -1,0 +1,53 @@
+{
+  "name": "divera-slack-app",
+  "private": true,
+  "author": {
+    "name": "Philipp Jardas",
+    "email": "philipp@jardas.de"
+  },
+  "scripts": {
+    "generate": "wireit",
+    "generate:divera:alarm": "wireit",
+    "generate:divera:auth": "wireit",
+    "deploy": "wireit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "openapi-typescript-codegen": "^0.25.0",
+    "prettier": "^3.0.0",
+    "serverless": "^3.33.0",
+    "serverless-offline": "^12.0.4",
+    "serverless-plugin-typescript": "^2.1.5",
+    "typescript": "^5.1.6",
+    "wireit": "^0.10.0"
+  },
+  "wireit": {
+    "generate": {
+      "dependencies": [
+        "generate:divera:alarm",
+        "generate:divera:auth"
+      ]
+    },
+    "generate:divera:alarm": {
+      "command": "openapi --input https://api.divera247.com/docs/api_v2_alarm.yaml --output src/api/divera/alarm --useUnionTypes --indent 2 && echo 'export const binary = undefined;' > src/api/divera/alarm/models/binary.ts",
+      "files": [
+        "src/api/divera/alarm"
+      ]
+    },
+    "generate:divera:auth": {
+      "command": "openapi --input https://api.divera247.com/docs/api_v2_auth.yaml --output src/api/divera/auth --useUnionTypes --indent 2",
+      "files": [
+        "src/api/divera/auth"
+      ]
+    },
+    "deploy": {
+      "dependencies": [
+        "generate"
+      ],
+      "command": "serverless deploy"
+    }
+  },
+  "volta": {
+    "node": "18.17.0"
+  }
+}

@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: npm run generate
