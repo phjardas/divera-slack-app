@@ -9,15 +9,14 @@
     "generate": "wireit",
     "generate:divera:alarm": "wireit",
     "generate:divera:auth": "wireit",
-    "deploy": "wireit"
+    "build": "wireit",
+    "clean": "shx rm -rf dist src/api/divera/{alarm,auth}"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
     "openapi-typescript-codegen": "^0.25.0",
     "prettier": "^3.0.0",
-    "serverless": "^3.33.0",
-    "serverless-offline": "^12.0.4",
-    "serverless-plugin-typescript": "^2.1.5",
+    "shx": "^0.3.4",
     "typescript": "^5.1.6",
     "wireit": "^0.10.0"
   },
@@ -29,22 +28,34 @@
       ]
     },
     "generate:divera:alarm": {
-      "command": "openapi --input https://api.divera247.com/docs/api_v2_alarm.yaml --output src/api/divera/alarm --useUnionTypes --indent 2 && echo 'export const binary = undefined;' > src/api/divera/alarm/models/binary.ts",
+      "command": "openapi --input openapi/divera_api_v2_alarm.yaml --output src/api/divera/alarm --useUnionTypes --indent 2 && echo 'export const binary = undefined;' > src/api/divera/alarm/models/binary.ts",
       "files": [
+        "openapi/divera_api_v2_alarm.yaml"
+      ],
+      "output": [
         "src/api/divera/alarm"
       ]
     },
     "generate:divera:auth": {
-      "command": "openapi --input https://api.divera247.com/docs/api_v2_auth.yaml --output src/api/divera/auth --useUnionTypes --indent 2",
+      "command": "openapi --input openapi/divera_api_v2_auth.yaml --output src/api/divera/auth --useUnionTypes --indent 2",
       "files": [
+        "openapi/divera_api_v2_auth.yaml"
+      ],
+      "output": [
         "src/api/divera/auth"
       ]
     },
-    "deploy": {
+    "build": {
       "dependencies": [
         "generate"
       ],
-      "command": "serverless deploy"
+      "command": "tsc",
+      "files": [
+        "src/**/*"
+      ],
+      "output": [
+        "dist"
+      ]
     }
   },
   "volta": {
